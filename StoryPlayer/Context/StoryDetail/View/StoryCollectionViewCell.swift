@@ -31,6 +31,8 @@ class StoryCollectionViewCell: UICollectionViewCell {
     
     var player: AVPlayer?
     var playerLayer: AVPlayerLayer?
+    let keyBuffer = "playbackBufferEmpty"
+    let keyKeepUp = "playbackLikelyToKeepUp"
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -71,8 +73,8 @@ class StoryCollectionViewCell: UICollectionViewCell {
                 let videoURL = URL(string: viewModel.getStoryItemVM(viewModel.currentIndex).mediaUrl) {
                 let playerItem = AVPlayerItem(url: videoURL)
                 player = AVPlayer(playerItem: playerItem)
-                playerItem.addObserver(self, forKeyPath: "playbackBufferEmpty", options: NSKeyValueObservingOptions.new, context: nil)
-                playerItem.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: NSKeyValueObservingOptions.new, context: nil)
+                playerItem.addObserver(self, forKeyPath: keyBuffer, options: NSKeyValueObservingOptions.new, context: nil)
+                playerItem.addObserver(self, forKeyPath: keyKeepUp, options: NSKeyValueObservingOptions.new, context: nil)
                 playerLayer = AVPlayerLayer(player: player)
                 playerLayer?.frame = self.viewVideo.bounds
                 self.viewVideo.layer.addSublayer(playerLayer!)
@@ -93,8 +95,8 @@ class StoryCollectionViewCell: UICollectionViewCell {
         currentTime = 0
         player?.pause()
         isPaused = true
-        player?.currentItem?.removeObserver(self, forKeyPath: "playbackBufferEmpty")
-        player?.currentItem?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
+        player?.currentItem?.removeObserver(self, forKeyPath: keyBuffer)
+        player?.currentItem?.removeObserver(self, forKeyPath: keyKeepUp)
         player = nil
         playerLayer?.removeFromSuperlayer()
         playerLayer = nil
@@ -102,14 +104,14 @@ class StoryCollectionViewCell: UICollectionViewCell {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let playerItem = object as? AVPlayerItem, playerItem == player?.currentItem {
-            if keyPath == "playbackBufferEmpty" {
+            if keyPath == keyBuffer {
                 if playerItem.isPlaybackBufferEmpty {
                     mainThread {
                         self.stopTimer()
                         self.loading.startAnimating()
                     }
                 }
-            } else if keyPath == "playbackLikelyToKeepUp" {
+            } else if keyPath == keyKeepUp {
                 if playerItem.isPlaybackLikelyToKeepUp {
                     mainThread {
                         self.loading.stopAnimating()
