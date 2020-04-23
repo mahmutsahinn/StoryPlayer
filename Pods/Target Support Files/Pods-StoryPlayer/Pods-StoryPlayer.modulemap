@@ -1,0 +1,6 @@
+framework module Pods_StoryPlayer {
+  umbrella header "Pods-StoryPlayer-umbrella.h"
+
+  export *
+  module * { export * }
+}

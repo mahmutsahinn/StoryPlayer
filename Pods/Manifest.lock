@@ -1,0 +1,28 @@
+PODS:
+  - Alamofire (4.9.1)
+  - AlamofireImage (3.6.0):
+    - Alamofire (~> 4.9)
+  - AnimatedCollectionViewLayout (1.0.1)
+  - Observable (2.0.1)
+
+DEPENDENCIES:
+  - AlamofireImage (~> 3.5)
+  - AnimatedCollectionViewLayout
+  - Observable
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - AlamofireImage
+    - AnimatedCollectionViewLayout
+    - Observable
+
+SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  AlamofireImage: be9963c6582d68b39e89191f64c82a7d7bf40fdd
+  AnimatedCollectionViewLayout: 00f0997fd26f0fd02d8b99765023b95570b5d826
+  Observable: c94150db5a2e43391d46a247bd395ce1a544b81a
+
+PODFILE CHECKSUM: 9b71e3172875f57f2c48aacd4a578086a1c5136c
+
+COCOAPODS: 1.9.1

@@ -1,0 +1,99 @@
+
+{
+    "storyGroups":
+    [
+        {
+            "groupName": "doğa",
+            "thumbUrl": "https://resimdiyari.com/_data/i/upload/2012/10/14/20121014183709-73f00950-me.jpg",
+            "stories":
+            [
+                {
+                    "mediaUrl" : "https://resimdiyari.com/_data/i/upload/2012/10/14/20121014183709-73f00950-me.jpg",
+                    "duration": 3,
+                    "isVideo": false
+                },
+                {
+                    "mediaUrl" : "https://i.pinimg.com/originals/83/1e/3e/831e3e081b3fcdb0a775b815e7300186.jpg",
+                    "duration": 3,
+                    "isVideo": false
+                },
+                {
+                    "mediaUrl" : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+                    "duration": 10,
+                    "isVideo": true
+                },
+                {
+                    "mediaUrl" : "https://i.ytimg.com/vi/HgRgFJXiNYU/maxresdefault.jpg",
+                    "duration": 3,
+                    "isVideo": false
+                }
+            ]
+        },
+        {
+            "groupName": "orman",
+            "thumbUrl": "https://www.solar.ist/wp-content/uploads/2018/09/orman-k%C3%B6yleri-g%C3%BCne%C5%9F-haberi-solarist-g%C3%BCnder-1200x1200.jpg",
+            "stories":
+            [
+                {
+                    "mediaUrl" : "https://www.solar.ist/wp-content/uploads/2018/09/orman-k%C3%B6yleri-g%C3%BCne%C5%9F-haberi-solarist-g%C3%BCnder-1200x1200.jpg",
+                    "duration": 3,
+                    "isVideo": false
+                },
+                {
+                    "mediaUrl" : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+                    "duration": 10,
+                    "isVideo": true
+                },
+                {
+                    "mediaUrl" : "https://iasbh.tmgrup.com.tr/5ee9bf/650/344/0/8/1366/729?u=http://i.sabah.com.tr/sbh/2017/02/05/orman-nedir-1486275046348.jpg",
+                    "duration": 3,
+                    "isVideo": false
+                }
+            ]
+        },
+        {
+            "groupName": "dağ",
+            "thumbUrl": "https://i.pinimg.com/originals/1d/90/c3/1d90c3c95173f04b30f075d6b143db16.jpg",
+            "stories":
+            [
+                {
+                    "mediaUrl" : "https://i.pinimg.com/originals/1d/90/c3/1d90c3c95173f04b30f075d6b143db16.jpg",
+                    "duration": 3,
+                    "isVideo": false
+                },
+                {
+                    "mediaUrl" : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+                    "duration": 10,
+                    "isVideo": true
+                },
+                {
+                    "mediaUrl" : "https://cdntr1.img.sputniknews.com/img/103657/48/1036574867_0:0:3263:2048_1000x627_80_0_0_c806f3a33fde6ec4e7acbbe98d52c7cd.jpg",
+                    "duration": 3,
+                    "isVideo": false
+                }
+            ]
+        },
+        {
+            "groupName": "deniz",
+            "thumbUrl": "https://images3.alphacoders.com/910/910528.jpg",
+            "stories":
+            [
+                {
+                    "mediaUrl" : "https://images3.alphacoders.com/910/910528.jpg",
+                    "duration": 3,
+                    "isVideo": false
+                },
+                {
+                    "mediaUrl" : "https://www.ruyatabirleri.gen.tr/wp-content/uploads/2016/12/ruyada-deniz-gormek-825x510.jpeg",
+                    "duration": 3,
+                    "isVideo": false
+                },
+                {
+                    "mediaUrl" : "https://www.diyadinnet.com/d/ruya/ruyada-berrak-deniz-gormek-ne-anlama-gelir-2171.jpg",
+                    "duration": 3,
+                    "isVideo": false
+                }
+            ]
+        }
+    ]
+}
