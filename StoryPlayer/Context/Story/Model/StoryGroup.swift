@@ -11,4 +11,5 @@ struct StoryGroup: Codable {
     var groupName: String
     var thumbUrl: String
     var stories: [StoryItem]
+    var groupIndex: Int
 }

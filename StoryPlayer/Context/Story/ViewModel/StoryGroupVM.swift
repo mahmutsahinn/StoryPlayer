@@ -14,6 +14,7 @@ class StoryGroupVM {
     
     init(_ storyGroup: StoryGroup) {
         self.storyGroup = storyGroup
+        self.currentIndex = storyGroup.groupIndex
     }
     
     var groupName: String {

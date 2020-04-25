@@ -60,10 +60,10 @@ extension StoryViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let storyVC = storyboard.instantiateViewController(withIdentifier: "StoryDetailViewController") as! StoryDetailViewController
-        storyVC.viewModel = viewModel
-        storyVC.scrollIndex = indexPath.row
-        self.navigationController?.pushViewController(storyVC, animated: true)
+        let storyDetailVC = storyboard.instantiateViewController(withIdentifier: "StoryDetailViewController") as! StoryDetailViewController
+        storyDetailVC.viewModel = viewModel
+        storyDetailVC.scrollIndex = indexPath.row
+        present(storyDetailVC, animated: true, completion: nil)
     }
     
 }

@@ -32,4 +32,8 @@ class StoryContentVM: NSObject {
     }
     
     var currentGroupIndex = 0
+    
+    func setGroupCurrentIndex(_ index: Int,_ groupIndex: Int) {
+        storyContent.wrappedValue.storyGroups[groupIndex].groupIndex = index
+    }
 }

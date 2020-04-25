@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7393A56FB5622097BAD05D68 /* Pods_StoryPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A1C196212A7A84BB172D56 /* Pods_StoryPlayer.framework */; };
 		C71F2C72244FABC50028ED1A /* StoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71F2C71244FABC50028ED1A /* StoryDetailViewController.swift */; };
+		C735F2B22452EA4000BA34EB /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C735F2B12452EA4000BA34EB /* VideoView.swift */; };
 		C77CFD83244F967E000904E2 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77CFD82244F967E000904E2 /* UIImageExtension.swift */; };
 		C77CFD89244F9FE7000904E2 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77CFD88244F9FE7000904E2 /* UIViewExtension.swift */; };
 		C77CFD93244FA490000904E2 /* StoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77CFD91244FA490000904E2 /* StoryCollectionViewCell.swift */; };
@@ -37,6 +38,7 @@
 		037B12FEA642D60A9E82DEC1 /* Pods-StoryPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryPlayer.debug.xcconfig"; path = "Target Support Files/Pods-StoryPlayer/Pods-StoryPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		736F51DC239161A5B297B762 /* Pods-StoryPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryPlayer.release.xcconfig"; path = "Target Support Files/Pods-StoryPlayer/Pods-StoryPlayer.release.xcconfig"; sourceTree = "<group>"; };
 		C71F2C71244FABC50028ED1A /* StoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDetailViewController.swift; sourceTree = "<group>"; };
+		C735F2B12452EA4000BA34EB /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		C77CFD82244F967E000904E2 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		C77CFD88244F9FE7000904E2 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		C77CFD91244FA490000904E2 /* StoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				C7849CD1244FBCF700BFBEE8 /* StoryBarCollectionViewCell.swift */,
 				C7849CD2244FBCF700BFBEE8 /* StoryBarCollectionViewCell.xib */,
 				C7849CD5244FBD9B00BFBEE8 /* BarView.swift */,
+				C735F2B12452EA4000BA34EB /* VideoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				C7B0F7D6244F817B005E30EE /* StoryGroup.swift in Sources */,
 				C7849CD3244FBCF700BFBEE8 /* StoryBarCollectionViewCell.swift in Sources */,
 				C7B0F7B3244F7417005E30EE /* StoryViewController.swift in Sources */,
+				C735F2B22452EA4000BA34EB /* VideoView.swift in Sources */,
 				C7B0F7D2244F7F8E005E30EE /* StoryContentVM.swift in Sources */,
 				C77CFD83244F967E000904E2 /* UIImageExtension.swift in Sources */,
 				C7B0F7C5244F7688005E30EE /* StoryItem.swift in Sources */,

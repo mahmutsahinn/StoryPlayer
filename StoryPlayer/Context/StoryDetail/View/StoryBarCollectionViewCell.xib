@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GpG-02-5ih" customClass="BarView" customModule="StoryPlayer" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="42.5" width="292" height="3"/>
+                        <rect key="frame" x="5" y="42.5" width="282" height="3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="3" id="L6U-yB-5bF"/>
@@ -27,9 +28,9 @@
             </view>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="GpG-02-5ih" secondAttribute="trailing" id="5mU-NC-CGc"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="GpG-02-5ih" secondAttribute="trailing" constant="5" id="5mU-NC-CGc"/>
                 <constraint firstItem="GpG-02-5ih" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="FFp-co-3Xw"/>
-                <constraint firstItem="GpG-02-5ih" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" id="w2I-bh-B0k"/>
+                <constraint firstItem="GpG-02-5ih" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="5" id="w2I-bh-B0k"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="292" height="44"/>

@@ -5,6 +5,7 @@
         {
             "groupName": "doğa",
             "thumbUrl": "https://resimdiyari.com/_data/i/upload/2012/10/14/20121014183709-73f00950-me.jpg",
+            "groupIndex": 0,
             "stories":
             [
                 {
@@ -32,6 +33,7 @@
         {
             "groupName": "orman",
             "thumbUrl": "https://www.solar.ist/wp-content/uploads/2018/09/orman-k%C3%B6yleri-g%C3%BCne%C5%9F-haberi-solarist-g%C3%BCnder-1200x1200.jpg",
+            "groupIndex": 0,
             "stories":
             [
                 {
@@ -54,6 +56,7 @@
         {
             "groupName": "dağ",
             "thumbUrl": "https://i.pinimg.com/originals/1d/90/c3/1d90c3c95173f04b30f075d6b143db16.jpg",
+            "groupIndex": 0,
             "stories":
             [
                 {
@@ -76,6 +79,7 @@
         {
             "groupName": "deniz",
             "thumbUrl": "https://images3.alphacoders.com/910/910528.jpg",
+            "groupIndex": 0,
             "stories":
             [
                 {

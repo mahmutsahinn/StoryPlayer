@@ -7,11 +7,12 @@
 //
 
 import UIKit
-import AVFoundation
+import Observable
 
 protocol StoryCollectionViewCellDelegate: AnyObject {
     func goToNextStory()
     func goToPreviousStory()
+    func currentIndex(_ index: Int,_ groupIndex: Int)
 }
 
 class StoryCollectionViewCell: UICollectionViewCell {
@@ -20,29 +21,22 @@ class StoryCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet private var imageViewThumb: UIImageView!
     @IBOutlet private var collectionViewBars: UICollectionView!
-    @IBOutlet private var viewVideo: UIView!
+    @IBOutlet private var viewVideo: VideoView!
     @IBOutlet private var loading: UIActivityIndicatorView!
     
     var isResizingLeftEdge:Bool = false
     var isResizingRightEdge:Bool = false
     var kResizeThumbSize:CGFloat = 44.0
     
-    weak var delegate: StoryCollectionViewCellDelegate?
+    var groupIndex = 0
     
-    var player: AVPlayer?
-    var playerLayer: AVPlayerLayer?
-    let keyBuffer = "playbackBufferEmpty"
-    let keyKeepUp = "playbackLikelyToKeepUp"
+    weak var delegate: StoryCollectionViewCellDelegate?
+    private var disposal = Disposal()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         configureCollectionView()
-    }
-    
-    private func configureCollectionView() {
-        collectionViewBars.delegate = self
-        collectionViewBars.dataSource = self
-        collectionViewBars.register(UINib(nibName: StoryBarCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: StoryBarCollectionViewCell.identifier)
+        observeVideoView()
     }
     
     var viewModel: StoryGroupVM! {
@@ -52,8 +46,27 @@ class StoryCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateUI() {
-        collectionViewBars.reloadData()
-        resetTimerAndStart()
+        mainThread(0.1) {
+            self.collectionViewBars.reloadData()
+            self.resetTimerAndStart()
+        }
+    }
+    
+    private func configureCollectionView() {
+        collectionViewBars.delegate = self
+        collectionViewBars.dataSource = self
+        collectionViewBars.register(UINib(nibName: StoryBarCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: StoryBarCollectionViewCell.identifier)
+    }
+    
+    private func observeVideoView() {
+        viewVideo.readyToPlayVideo.observe { [weak self] (_, _) in
+            if self?.viewVideo.readyToPlayVideo.wrappedValue ?? false {
+                self?.continueTimer()
+            } else {
+                self?.loading.startAnimating()
+                self?.pauseTimer()
+            }
+        }.add(to: &disposal)
     }
     
     var timer = Timer()
@@ -62,27 +75,20 @@ class StoryCollectionViewCell: UICollectionViewCell {
     var isPaused = false
     var touchesEnded = true
     
-    private func resetTimerAndStart() {
+    func resetTimerAndStart() {
         resetItems()
         if viewModel.currentIndex == viewModel.numberOfStories {
             delegate?.goToNextStory()
         } else {
+            delegate?.currentIndex(viewModel.currentIndex, groupIndex)
             viewVideo.isHidden = !viewModel.getStoryItemVM(viewModel.currentIndex).isVideo
             loading.startAnimating()
-            if viewModel.getStoryItemVM(viewModel.currentIndex).isVideo,
-                let videoURL = URL(string: viewModel.getStoryItemVM(viewModel.currentIndex).mediaUrl) {
-                let playerItem = AVPlayerItem(url: videoURL)
-                player = AVPlayer(playerItem: playerItem)
-                playerItem.addObserver(self, forKeyPath: keyBuffer, options: NSKeyValueObservingOptions.new, context: nil)
-                playerItem.addObserver(self, forKeyPath: keyKeepUp, options: NSKeyValueObservingOptions.new, context: nil)
-                playerLayer = AVPlayerLayer(player: player)
-                playerLayer?.frame = self.viewVideo.bounds
-                self.viewVideo.layer.addSublayer(playerLayer!)
+            if viewModel.getStoryItemVM(viewModel.currentIndex).isVideo {
+                viewVideo.videoUrl = viewModel.getStoryItemVM(viewModel.currentIndex).mediaUrl
             } else {
                 imageViewThumb.setImageURL(viewModel.getStoryItemVM(viewModel.currentIndex).mediaUrl) {
                     mainThread {
-                        self.loading.stopAnimating()
-                        self.isPaused = false
+                        self.continueTimer()
                     }
                 }
             }
@@ -93,35 +99,8 @@ class StoryCollectionViewCell: UICollectionViewCell {
     func resetItems() {
         timer.invalidate()
         currentTime = 0
-        player?.pause()
         isPaused = true
-        player?.currentItem?.removeObserver(self, forKeyPath: keyBuffer)
-        player?.currentItem?.removeObserver(self, forKeyPath: keyKeepUp)
-        player = nil
-        playerLayer?.removeFromSuperlayer()
-        playerLayer = nil
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if let playerItem = object as? AVPlayerItem, playerItem == player?.currentItem {
-            if keyPath == keyBuffer {
-                if playerItem.isPlaybackBufferEmpty {
-                    mainThread {
-                        self.stopTimer()
-                        self.loading.startAnimating()
-                    }
-                }
-            } else if keyPath == keyKeepUp {
-                if playerItem.isPlaybackLikelyToKeepUp {
-                    mainThread {
-                        self.loading.stopAnimating()
-                        if self.touchesEnded {
-                            self.continueTimer()
-                        }
-                    }
-                }
-            }
-        }
+        viewVideo.resetItems()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -131,7 +110,7 @@ class StoryCollectionViewCell: UICollectionViewCell {
             isResizingLeftEdge = (currentPoint.x < kResizeThumbSize)
             isResizingRightEdge = (self.bounds.size.width - currentPoint.x < kResizeThumbSize)
         }
-        stopTimer()
+        pauseTimer()
         touchesEnded = false
     }
     
@@ -157,17 +136,14 @@ class StoryCollectionViewCell: UICollectionViewCell {
     }
     
     func continueTimer() {
+        loading.stopAnimating()
         isPaused = false
-        if let player = player {
-            player.play()
-        }
+        viewVideo.play()
     }
     
-    func stopTimer() {
+    func pauseTimer() {
         isPaused = true
-        if let player = player {
-            player.pause()
-        }
+        viewVideo.pause()
     }
     
     @objc private func updateTime() {
@@ -200,11 +176,12 @@ extension StoryCollectionViewCell: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoryBarCollectionViewCell.identifier, for: indexPath) as! StoryBarCollectionViewCell
-        cell.percentage = 0
+        cell.barWidth = Int(UIScreen.main.bounds.width) / viewModel.numberOfStories
+        cell.percentage = indexPath.row < viewModel.currentIndex ? 100 : 0
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (UIScreen.main.bounds.width / CGFloat(viewModel.numberOfStories) - 12), height: collectionView.frame.height)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {        
+        return CGSize(width: Int(UIScreen.main.bounds.width) / viewModel.numberOfStories, height: Int(collectionView.frame.height))
     }
 }

@@ -49,14 +49,16 @@ class StoryDetailViewController: UIViewController {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         viewModel.currentGroupIndex = Int(collectionViewStories.contentOffset.x / collectionViewStories.frame.width)
         currentDisplayCell?.continueTimer()
+        collectionViewStories.isUserInteractionEnabled = true
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        currentDisplayCell?.stopTimer()
+        currentDisplayCell?.pauseTimer()
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         currentDisplayCell?.continueTimer()
+        collectionViewStories.isUserInteractionEnabled = true
     }
     
     private func scrollToCollectionView(_ index: Int,_ animate: Bool = true) {
@@ -66,6 +68,10 @@ class StoryDetailViewController: UIViewController {
     var currentDisplayCell: StoryCollectionViewCell? {
         guard let cell = collectionViewStories.cellForItem(at: IndexPath(item: viewModel.currentGroupIndex, section: 0)) as? StoryCollectionViewCell else { return nil}
         return cell
+    }
+    
+    @IBAction private func buttonCloseTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -78,6 +84,7 @@ extension StoryDetailViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoryCollectionViewCell.identifier, for: indexPath) as! StoryCollectionViewCell
         cell.viewModel = viewModel.getStoryGroupVM(indexPath.row)
+        cell.groupIndex = indexPath.row
         cell.delegate = self
         cell.continueTimer()
         return cell
@@ -110,12 +117,16 @@ extension StoryDetailViewController: UICollectionViewDelegate, UICollectionViewD
 }
 
 extension StoryDetailViewController: StoryCollectionViewCellDelegate {
+    func currentIndex(_ index: Int,_ groupIndex: Int) {
+        viewModel.setGroupCurrentIndex(index, groupIndex)
+    }
     
     func goToNextStory() {
         viewModel.currentGroupIndex += 1
         if viewModel.currentGroupIndex == viewModel.numberOfGroups {
-            self.navigationController?.popViewController(animated: true)
+            dismiss(animated: true, completion: nil)
         } else {
+            collectionViewStories.isUserInteractionEnabled = false
             scrollToCollectionView(viewModel.currentGroupIndex)
         }
     }
@@ -123,6 +134,7 @@ extension StoryDetailViewController: StoryCollectionViewCellDelegate {
     func goToPreviousStory() {
         if viewModel.currentGroupIndex != 0 {
             viewModel.currentGroupIndex -= 1
+            collectionViewStories.isUserInteractionEnabled = false
             scrollToCollectionView(viewModel.currentGroupIndex)
         }
     }

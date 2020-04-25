@@ -11,16 +11,13 @@ import UIKit
 class BarView: UIView {
 
     var passiveColor = UIColor.lightGray
+    
+    var barWidth: CGFloat = 0
 
     var percentage: CGFloat = 0 {
         didSet {
-            let totalWidth = self.frame.size.width
-            let newMargin = (totalWidth / 100.0) * percentage
-            
-            UIView.animate(withDuration: 0.1) {
-                self.passiveViewLeadingConstraint.constant = newMargin
-                self.layoutIfNeeded()
-            }
+            let newMargin = (barWidth / 100.0) * percentage
+            passiveViewLeadingConstraint.constant = newMargin
         }
     }
     
@@ -47,14 +44,14 @@ class BarView: UIView {
         clipsToBounds = true
         activeView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(activeView)
-        activeView.heightAnchor.constraint(equalToConstant: 10.0).isActive = true
+        activeView.heightAnchor.constraint(equalToConstant: 3.0).isActive = true
         activeView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         activeView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         activeView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         activeView.backgroundColor = .white
         passiveView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(passiveView)
-        passiveView.heightAnchor.constraint(equalToConstant: 10.0).isActive = true
+        passiveView.heightAnchor.constraint(equalToConstant: 3.0).isActive = true
         passiveViewLeadingConstraint = passiveView.leftAnchor.constraint(equalTo: self.leftAnchor)
         passiveViewLeadingConstraint.isActive = true
         passiveView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true

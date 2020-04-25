@@ -21,5 +21,11 @@ class StoryBarCollectionViewCell: UICollectionViewCell {
             viewBar.percentage = percentage
         }
     }
+    
+    var barWidth: Int = 0 {
+        didSet {
+            viewBar.barWidth = CGFloat(barWidth - 10)
+        }
+    }
 
 }
